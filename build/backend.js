@@ -66,7 +66,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _actions = __webpack_require__(118);
+	var _actions = __webpack_require__(119);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83,7 +83,6 @@
 	    (0, _preact.h)(_App2.default, { url: req.url })
 	  );
 	  var initialState = req.store.getState();
-	  intialState.clientControl = false;
 	  var html = (0, _template2.default)(rootComponent, initialState);
 	  res.send(html);
 	};
@@ -26596,7 +26595,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = function (rootComponent, initialState) {
-	  return '\n  <!doctype html>\n  <html>\n    <head>\n      <title>HackDash</title>\n    </head>\n    <body>\n      <div id="root">' + (0, _preactRenderToString2.default)(rootComponent) + '</div>\n      <script>window.__state__ = ' + JSON.stringify(initialState) + ';</script>\n      <script src="/frontend.js"></script>\n    </body>\n  </html>';
+	  return '\n  <!doctype html>\n  <html>\n    <head>\n      <title>HackDash</title>\n      <style>html, body { margin: 0; padding: 0; }</style>\n    </head>\n    <body>\n      <div id="root">' + (0, _preactRenderToString2.default)(rootComponent) + '</div>\n      <script>window.__state__ = ' + JSON.stringify(initialState) + ';</script>\n      <script src="/frontend.js"></script>\n    </body>\n  </html>';
 	};
 
 /***/ },
@@ -26624,11 +26623,15 @@
 
 	var _preactRouter = __webpack_require__(116);
 
-	var _Home = __webpack_require__(117);
+	var _Header = __webpack_require__(117);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Home = __webpack_require__(118);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Dashboard = __webpack_require__(144);
+	var _Dashboard = __webpack_require__(145);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
@@ -26639,11 +26642,22 @@
 	  var _ref$client = _ref.client;
 	  var client = _ref$client === undefined ? false : _ref$client;
 	  return (0, _preact.h)(
-	    _Router2.default,
-	    { url: url, client: client },
-	    (0, _preact.h)(_Home2.default, { path: '/' }),
-	    (0, _preact.h)(_Dashboard2.default, { path: '/dashboards/:dashboardId' })
+	    'div',
+	    { style: styles.body },
+	    (0, _preact.h)(_Header2.default, null),
+	    (0, _preact.h)(
+	      _Router2.default,
+	      { url: url, client: client },
+	      (0, _preact.h)(_Home2.default, { path: '/' }),
+	      (0, _preact.h)(_Dashboard2.default, { path: '/dashboards/:dashboardId' })
+	    )
 	  );
+	};
+
+	var styles = {
+	  body: {
+	    fontFamily: '\'Helvetica Neue\', Helvetica, Arial, sans-serif;'
+	  }
 	};
 
 /***/ },
@@ -26977,11 +26991,104 @@
 
 	var _preact = __webpack_require__(1);
 
+	var _reactRedux = __webpack_require__(96);
+
 	var _preactRouter = __webpack_require__(116);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Header = function (_Component) {
+	  _inherits(Header, _Component);
+
+	  function Header() {
+	    _classCallCheck(this, Header);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+	  }
+
+	  _createClass(Header, [{
+	    key: 'render',
+	    value: function render() {
+	      return (0, _preact.h)(
+	        'div',
+	        { style: styles.header },
+	        (0, _preact.h)(
+	          _preactRouter.Link,
+	          { href: '/' },
+	          (0, _preact.h)('img', { style: styles.logo, src: '/images/logo.png' })
+	        ),
+	        (0, _preact.h)(
+	          'nav',
+	          { style: styles.navigation },
+	          (0, _preact.h)(
+	            _preactRouter.Link,
+	            { style: styles.navigation.link, href: '/dashboards/create' },
+	            'New Dashboard'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Header;
+	}(_preact.Component);
+
+	var styles = {
+	  header: {
+	    height: 75,
+	    maxWidth: 800,
+	    margin: '0 auto',
+	    paddingTop: 15
+	  },
+	  logo: {
+	    display: 'inline-block',
+	    height: 75
+	  },
+	  navigation: {
+	    display: 'inline-block',
+	    float: 'right',
+	    listStyle: 'none',
+	    paddingTop: 10,
+	    link: {
+	      background: '#546E7A',
+	      display: 'inline-block',
+	      padding: 10,
+	      color: '#ECEFF1',
+	      textDecoration: 'none',
+	      borderRadius: 4
+	    }
+	  }
+	};
+
+	exports.default = Header;
+
+/***/ },
+/* 118 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _preact = __webpack_require__(1);
 
 	var _reactRedux = __webpack_require__(96);
 
-	var _actions = __webpack_require__(118);
+	var _DashboardCard = __webpack_require__(146);
+
+	var _DashboardCard2 = _interopRequireDefault(_DashboardCard);
+
+	var _actions = __webpack_require__(119);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27014,23 +27121,29 @@
 	        'div',
 	        null,
 	        (0, _preact.h)(
-	          'h1',
-	          null,
-	          'HackDash'
+	          'div',
+	          { style: styles.hero },
+	          (0, _preact.h)(
+	            'h1',
+	            { style: styles.hero.title },
+	            'Manage your Hackathon'
+	          ),
+	          (0, _preact.h)(
+	            'h2',
+	            { style: styles.hero.subtitle },
+	            'Organize and showcase the projects, know who is participating'
+	          ),
+	          (0, _preact.h)(
+	            'span',
+	            { style: styles.search },
+	            (0, _preact.h)('input', { style: styles.search.input, placeholder: 'Search' })
+	          )
 	        ),
 	        (0, _preact.h)(
-	          'ul',
-	          null,
+	          'div',
+	          { style: styles.dashboards },
 	          dashboards.map(function (dashboard, i) {
-	            return (0, _preact.h)(
-	              'li',
-	              { key: i },
-	              (0, _preact.h)(
-	                _preactRouter.Link,
-	                { href: '/dashboards/' + dashboard.domain },
-	                dashboard.title
-	              )
-	            );
+	            return (0, _preact.h)(_DashboardCard2.default, { key: i, dashboard: dashboard });
 	          })
 	        )
 	      );
@@ -27040,6 +27153,49 @@
 	  return Home;
 	}(_preact.Component);
 
+	var styles = {
+	  hero: {
+	    textAlign: 'center',
+	    paddingTop: 50,
+	    fontSize: '1.2em',
+	    title: {
+	      color: '#607D8B',
+	      marginBottom: 0
+	    },
+	    subtitle: {
+	      color: '#B0BEC5',
+	      fontWeight: 'normal',
+	      marginBottom: 60
+	    }
+	  },
+	  search: {
+	    display: 'inline-block',
+	    height: 30,
+	    width: 300,
+	    border: '1px solid #B0BEC5',
+	    padding: 5,
+	    borderRadius: 4,
+	    background: '#fff',
+	    input: {
+	      height: '100%',
+	      width: '100%',
+	      border: 0,
+	      padding: 3,
+	      marginTop: -3,
+	      marginLeft: -3,
+	      fontSize: 16
+	    }
+	  },
+	  dashboards: {
+	    background: '#455A64',
+	    marginTop: -20,
+	    paddingTop: 70,
+	    display: 'flex',
+	    justifyContent: 'center',
+	    flexWrap: 'wrap'
+	  }
+	};
+
 	var mapStateToProps = function mapStateToProps(_ref2) {
 	  var dashboards = _ref2.dashboards;
 	  return { dashboards: dashboards };
@@ -27047,7 +27203,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ },
-/* 118 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27057,7 +27213,7 @@
 	});
 	exports.fetchDashboards = exports.fetchDashboard = exports.fetchInitialData = undefined;
 
-	var _axios = __webpack_require__(119);
+	var _axios = __webpack_require__(120);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -27144,25 +27300,25 @@
 	};
 
 /***/ },
-/* 119 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(120);
+	module.exports = __webpack_require__(121);
 
 /***/ },
-/* 120 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(121);
-	var utils = __webpack_require__(122);
-	var dispatchRequest = __webpack_require__(123);
-	var InterceptorManager = __webpack_require__(139);
-	var isAbsoluteURL = __webpack_require__(140);
-	var combineURLs = __webpack_require__(141);
-	var bind = __webpack_require__(142);
-	var transformData = __webpack_require__(127);
+	var defaults = __webpack_require__(122);
+	var utils = __webpack_require__(123);
+	var dispatchRequest = __webpack_require__(124);
+	var InterceptorManager = __webpack_require__(140);
+	var isAbsoluteURL = __webpack_require__(141);
+	var combineURLs = __webpack_require__(142);
+	var bind = __webpack_require__(143);
+	var transformData = __webpack_require__(128);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -27245,7 +27401,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(143);
+	axios.spread = __webpack_require__(144);
 
 	// Expose interceptors
 	axios.interceptors = defaultInstance.interceptors;
@@ -27276,12 +27432,12 @@
 
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(122);
+	var utils = __webpack_require__(123);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -27345,7 +27501,7 @@
 
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27595,7 +27751,7 @@
 
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27617,10 +27773,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(124);
+	        adapter = __webpack_require__(125);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(131);
+	        adapter = __webpack_require__(132);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -27635,17 +27791,17 @@
 
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(122);
-	var buildURL = __webpack_require__(125);
-	var parseHeaders = __webpack_require__(126);
-	var transformData = __webpack_require__(127);
-	var isURLSameOrigin = __webpack_require__(128);
-	var btoa = window.btoa || __webpack_require__(129);
+	var utils = __webpack_require__(123);
+	var buildURL = __webpack_require__(126);
+	var parseHeaders = __webpack_require__(127);
+	var transformData = __webpack_require__(128);
+	var isURLSameOrigin = __webpack_require__(129);
+	var btoa = window.btoa || __webpack_require__(130);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -27720,7 +27876,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(130);
+	    var cookies = __webpack_require__(131);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ?
@@ -27771,12 +27927,12 @@
 
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(122);
+	var utils = __webpack_require__(123);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -27844,12 +28000,12 @@
 
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(122);
+	var utils = __webpack_require__(123);
 
 	/**
 	 * Parse headers into an object
@@ -27887,12 +28043,12 @@
 
 
 /***/ },
-/* 127 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(122);
+	var utils = __webpack_require__(123);
 
 	/**
 	 * Transform the data for a request or a response
@@ -27913,12 +28069,12 @@
 
 
 /***/ },
-/* 128 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(122);
+	var utils = __webpack_require__(123);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -27987,7 +28143,7 @@
 
 
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28029,12 +28185,12 @@
 
 
 /***/ },
-/* 130 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(122);
+	var utils = __webpack_require__(123);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -28088,19 +28244,19 @@
 
 
 /***/ },
-/* 131 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(122);
-	var buildURL = __webpack_require__(125);
-	var transformData = __webpack_require__(127);
-	var http = __webpack_require__(132).http;
-	var https = __webpack_require__(132).https;
+	var utils = __webpack_require__(123);
+	var buildURL = __webpack_require__(126);
+	var transformData = __webpack_require__(128);
+	var http = __webpack_require__(133).http;
+	var https = __webpack_require__(133).https;
 	var url = __webpack_require__(35);
-	var zlib = __webpack_require__(137);
-	var pkg = __webpack_require__(138);
+	var zlib = __webpack_require__(138);
+	var pkg = __webpack_require__(139);
 	var Buffer = __webpack_require__(29).Buffer;
 
 	module.exports = function httpAdapter(resolve, reject, config) {
@@ -28226,24 +28382,24 @@
 
 
 /***/ },
-/* 132 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(133)({
+	module.exports = __webpack_require__(134)({
 	  'http': __webpack_require__(16),
-	  'https': __webpack_require__(136)
+	  'https': __webpack_require__(137)
 	});
 
 
 /***/ },
-/* 133 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var url = __webpack_require__(35);
 	var debug = __webpack_require__(8)('follow-redirects');
-	var assert = __webpack_require__(134);
-	var consume = __webpack_require__(135);
+	var assert = __webpack_require__(135);
+	var consume = __webpack_require__(136);
 
 	module.exports = function(_nativeProtocols) {
 	  var nativeProtocols = {};
@@ -28404,13 +28560,13 @@
 
 
 /***/ },
-/* 134 */
+/* 135 */
 /***/ function(module, exports) {
 
 	module.exports = require("assert");
 
 /***/ },
-/* 135 */
+/* 136 */
 /***/ function(module, exports) {
 
 	module.exports = function(stream) {
@@ -28430,19 +28586,19 @@
 
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports) {
 
 	module.exports = require("https");
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports) {
 
 	module.exports = require("zlib");
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -28566,12 +28722,12 @@
 	};
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(122);
+	var utils = __webpack_require__(123);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -28624,7 +28780,7 @@
 
 
 /***/ },
-/* 140 */
+/* 141 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28644,7 +28800,7 @@
 
 
 /***/ },
-/* 141 */
+/* 142 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28662,7 +28818,7 @@
 
 
 /***/ },
-/* 142 */
+/* 143 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28679,7 +28835,7 @@
 
 
 /***/ },
-/* 143 */
+/* 144 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28712,7 +28868,7 @@
 
 
 /***/ },
-/* 144 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28729,7 +28885,7 @@
 
 	var _reactRedux = __webpack_require__(96);
 
-	var _actions = __webpack_require__(118);
+	var _actions = __webpack_require__(119);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28796,6 +28952,65 @@
 	  return { projects: projects };
 	};
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Dashboard);
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _preact = __webpack_require__(1);
+
+	var _preactRouter = __webpack_require__(116);
+
+	var baseUrl = 'https://hackdash.org';
+
+	exports.default = function (_ref) {
+	  var dashboard = _ref.dashboard;
+	  return (0, _preact.h)(
+	    'div',
+	    { style: styles.base, onClick: function onClick() {
+	        return (0, _preactRouter.route)('/dashboards/' + dashboard.domain);
+	      } },
+	    (0, _preact.h)('div', { style: styles.cover(dashboard.covers[0]) }),
+	    (0, _preact.h)(
+	      'h4',
+	      { style: styles.title },
+	      dashboard.title
+	    )
+	  );
+	};
+
+	var styles = {
+	  base: {
+	    width: '100%',
+	    maxWidth: 300,
+	    cursor: 'pointer',
+	    margin: 20,
+	    background: '#78909C',
+	    borderBottomLeftRadius: 2,
+	    borderBottomRightRadius: 2
+	  },
+	  cover: function cover(url) {
+	    return {
+	      display: 'block',
+	      height: 300,
+	      width: 300,
+	      backgroundSize: 'cover',
+	      backgroundImage: 'url(' + baseUrl + url + ')'
+	    };
+	  },
+
+	  title: {
+	    padding: 10,
+	    margin: 0,
+	    color: '#ECEFF1'
+	  }
+	};
 
 /***/ }
 /******/ ]);

@@ -7,9 +7,7 @@ var front = webpack(frontConfig)
 var back = webpack(backConfig)
 
 front.watch({}, function(){})
-back.watch({}, function(){
-  require('./build/backend')
-})
+back.watch({}, function(){})
 
 process.on('uncaughtException', function(err) {
   console.log(err)

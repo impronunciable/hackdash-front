@@ -7,6 +7,7 @@ export default (rootComponent, initialState) =>
   <html>
     <head>
       <title>HackDash</title>
+      <style>html, body { margin: 0; padding: 0; }</style>
     </head>
     <body>
       <div id="root">${render(rootComponent)}</div>

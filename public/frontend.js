@@ -54,7 +54,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _store = __webpack_require__(54);
+	var _store = __webpack_require__(55);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -3228,11 +3228,15 @@
 
 	var _preactRouter = __webpack_require__(33);
 
-	var _Home = __webpack_require__(34);
+	var _Header = __webpack_require__(34);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Home = __webpack_require__(35);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Dashboard = __webpack_require__(53);
+	var _Dashboard = __webpack_require__(54);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
@@ -3243,11 +3247,22 @@
 	  var _ref$client = _ref.client;
 	  var client = _ref$client === undefined ? false : _ref$client;
 	  return (0, _preact.h)(
-	    _Router2.default,
-	    { url: url, client: client },
-	    (0, _preact.h)(_Home2.default, { path: '/' }),
-	    (0, _preact.h)(_Dashboard2.default, { path: '/dashboards/:dashboardId' })
+	    'div',
+	    { style: styles.body },
+	    (0, _preact.h)(_Header2.default, null),
+	    (0, _preact.h)(
+	      _Router2.default,
+	      { url: url, client: client },
+	      (0, _preact.h)(_Home2.default, { path: '/' }),
+	      (0, _preact.h)(_Dashboard2.default, { path: '/dashboards/:dashboardId' })
+	    )
 	  );
+	};
+
+	var styles = {
+	  body: {
+	    fontFamily: '\'Helvetica Neue\', Helvetica, Arial, sans-serif;'
+	  }
 	};
 
 /***/ },
@@ -3581,11 +3596,104 @@
 
 	var _preact = __webpack_require__(1);
 
+	var _reactRedux = __webpack_require__(4);
+
 	var _preactRouter = __webpack_require__(33);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Header = function (_Component) {
+	  _inherits(Header, _Component);
+
+	  function Header() {
+	    _classCallCheck(this, Header);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+	  }
+
+	  _createClass(Header, [{
+	    key: 'render',
+	    value: function render() {
+	      return (0, _preact.h)(
+	        'div',
+	        { style: styles.header },
+	        (0, _preact.h)(
+	          _preactRouter.Link,
+	          { href: '/' },
+	          (0, _preact.h)('img', { style: styles.logo, src: '/images/logo.png' })
+	        ),
+	        (0, _preact.h)(
+	          'nav',
+	          { style: styles.navigation },
+	          (0, _preact.h)(
+	            _preactRouter.Link,
+	            { style: styles.navigation.link, href: '/dashboards/create' },
+	            'New Dashboard'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Header;
+	}(_preact.Component);
+
+	var styles = {
+	  header: {
+	    height: 75,
+	    maxWidth: 800,
+	    margin: '0 auto',
+	    paddingTop: 15
+	  },
+	  logo: {
+	    display: 'inline-block',
+	    height: 75
+	  },
+	  navigation: {
+	    display: 'inline-block',
+	    float: 'right',
+	    listStyle: 'none',
+	    paddingTop: 10,
+	    link: {
+	      background: '#546E7A',
+	      display: 'inline-block',
+	      padding: 10,
+	      color: '#ECEFF1',
+	      textDecoration: 'none',
+	      borderRadius: 4
+	    }
+	  }
+	};
+
+	exports.default = Header;
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _preact = __webpack_require__(1);
 
 	var _reactRedux = __webpack_require__(4);
 
-	var _actions = __webpack_require__(35);
+	var _DashboardCard = __webpack_require__(58);
+
+	var _DashboardCard2 = _interopRequireDefault(_DashboardCard);
+
+	var _actions = __webpack_require__(36);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3618,23 +3726,29 @@
 	        'div',
 	        null,
 	        (0, _preact.h)(
-	          'h1',
-	          null,
-	          'HackDash'
+	          'div',
+	          { style: styles.hero },
+	          (0, _preact.h)(
+	            'h1',
+	            { style: styles.hero.title },
+	            'Manage your Hackathon'
+	          ),
+	          (0, _preact.h)(
+	            'h2',
+	            { style: styles.hero.subtitle },
+	            'Organize and showcase the projects, know who is participating'
+	          ),
+	          (0, _preact.h)(
+	            'span',
+	            { style: styles.search },
+	            (0, _preact.h)('input', { style: styles.search.input, placeholder: 'Search' })
+	          )
 	        ),
 	        (0, _preact.h)(
-	          'ul',
-	          null,
+	          'div',
+	          { style: styles.dashboards },
 	          dashboards.map(function (dashboard, i) {
-	            return (0, _preact.h)(
-	              'li',
-	              { key: i },
-	              (0, _preact.h)(
-	                _preactRouter.Link,
-	                { href: '/dashboards/' + dashboard.domain },
-	                dashboard.title
-	              )
-	            );
+	            return (0, _preact.h)(_DashboardCard2.default, { key: i, dashboard: dashboard });
 	          })
 	        )
 	      );
@@ -3644,6 +3758,49 @@
 	  return Home;
 	}(_preact.Component);
 
+	var styles = {
+	  hero: {
+	    textAlign: 'center',
+	    paddingTop: 50,
+	    fontSize: '1.2em',
+	    title: {
+	      color: '#607D8B',
+	      marginBottom: 0
+	    },
+	    subtitle: {
+	      color: '#B0BEC5',
+	      fontWeight: 'normal',
+	      marginBottom: 60
+	    }
+	  },
+	  search: {
+	    display: 'inline-block',
+	    height: 30,
+	    width: 300,
+	    border: '1px solid #B0BEC5',
+	    padding: 5,
+	    borderRadius: 4,
+	    background: '#fff',
+	    input: {
+	      height: '100%',
+	      width: '100%',
+	      border: 0,
+	      padding: 3,
+	      marginTop: -3,
+	      marginLeft: -3,
+	      fontSize: 16
+	    }
+	  },
+	  dashboards: {
+	    background: '#455A64',
+	    marginTop: -20,
+	    paddingTop: 70,
+	    display: 'flex',
+	    justifyContent: 'center',
+	    flexWrap: 'wrap'
+	  }
+	};
+
 	var mapStateToProps = function mapStateToProps(_ref2) {
 	  var dashboards = _ref2.dashboards;
 	  return { dashboards: dashboards };
@@ -3651,7 +3808,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3661,7 +3818,7 @@
 	});
 	exports.fetchDashboards = exports.fetchDashboard = exports.fetchInitialData = undefined;
 
-	var _axios = __webpack_require__(36);
+	var _axios = __webpack_require__(37);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -3748,25 +3905,25 @@
 	};
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(37);
+	module.exports = __webpack_require__(38);
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(38);
-	var utils = __webpack_require__(39);
-	var dispatchRequest = __webpack_require__(40);
-	var InterceptorManager = __webpack_require__(48);
-	var isAbsoluteURL = __webpack_require__(49);
-	var combineURLs = __webpack_require__(50);
-	var bind = __webpack_require__(51);
-	var transformData = __webpack_require__(44);
+	var defaults = __webpack_require__(39);
+	var utils = __webpack_require__(40);
+	var dispatchRequest = __webpack_require__(41);
+	var InterceptorManager = __webpack_require__(49);
+	var isAbsoluteURL = __webpack_require__(50);
+	var combineURLs = __webpack_require__(51);
+	var bind = __webpack_require__(52);
+	var transformData = __webpack_require__(45);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -3849,7 +4006,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(52);
+	axios.spread = __webpack_require__(53);
 
 	// Expose interceptors
 	axios.interceptors = defaultInstance.interceptors;
@@ -3880,12 +4037,12 @@
 
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(39);
+	var utils = __webpack_require__(40);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -3949,7 +4106,7 @@
 
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4199,7 +4356,7 @@
 
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -4221,10 +4378,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(41);
+	        adapter = __webpack_require__(42);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(41);
+	        adapter = __webpack_require__(42);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -4240,17 +4397,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(39);
-	var buildURL = __webpack_require__(42);
-	var parseHeaders = __webpack_require__(43);
-	var transformData = __webpack_require__(44);
-	var isURLSameOrigin = __webpack_require__(45);
-	var btoa = window.btoa || __webpack_require__(46);
+	var utils = __webpack_require__(40);
+	var buildURL = __webpack_require__(43);
+	var parseHeaders = __webpack_require__(44);
+	var transformData = __webpack_require__(45);
+	var isURLSameOrigin = __webpack_require__(46);
+	var btoa = window.btoa || __webpack_require__(47);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -4325,7 +4482,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(47);
+	    var cookies = __webpack_require__(48);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ?
@@ -4376,12 +4533,12 @@
 
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(39);
+	var utils = __webpack_require__(40);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -4449,12 +4606,12 @@
 
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(39);
+	var utils = __webpack_require__(40);
 
 	/**
 	 * Parse headers into an object
@@ -4492,12 +4649,12 @@
 
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(39);
+	var utils = __webpack_require__(40);
 
 	/**
 	 * Transform the data for a request or a response
@@ -4518,12 +4675,12 @@
 
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(39);
+	var utils = __webpack_require__(40);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -4592,7 +4749,7 @@
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4634,12 +4791,12 @@
 
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(39);
+	var utils = __webpack_require__(40);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -4693,12 +4850,12 @@
 
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(39);
+	var utils = __webpack_require__(40);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -4751,7 +4908,7 @@
 
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4771,7 +4928,7 @@
 
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4789,7 +4946,7 @@
 
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4806,7 +4963,7 @@
 
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4839,7 +4996,7 @@
 
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4856,7 +5013,7 @@
 
 	var _reactRedux = __webpack_require__(4);
 
-	var _actions = __webpack_require__(35);
+	var _actions = __webpack_require__(36);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4925,7 +5082,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Dashboard);
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4936,11 +5093,11 @@
 
 	var _redux = __webpack_require__(14);
 
-	var _reduxThunk = __webpack_require__(55);
+	var _reduxThunk = __webpack_require__(56);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _reducers = __webpack_require__(56);
+	var _reducers = __webpack_require__(57);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -4953,7 +5110,7 @@
 	};
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4976,7 +5133,7 @@
 	}
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5037,6 +5194,65 @@
 	  dashboards: dashboards,
 	  serverReady: serverReady
 	});
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _preact = __webpack_require__(1);
+
+	var _preactRouter = __webpack_require__(33);
+
+	var baseUrl = 'https://hackdash.org';
+
+	exports.default = function (_ref) {
+	  var dashboard = _ref.dashboard;
+	  return (0, _preact.h)(
+	    'div',
+	    { style: styles.base, onClick: function onClick() {
+	        return (0, _preactRouter.route)('/dashboards/' + dashboard.domain);
+	      } },
+	    (0, _preact.h)('div', { style: styles.cover(dashboard.covers[0]) }),
+	    (0, _preact.h)(
+	      'h4',
+	      { style: styles.title },
+	      dashboard.title
+	    )
+	  );
+	};
+
+	var styles = {
+	  base: {
+	    width: '100%',
+	    maxWidth: 300,
+	    cursor: 'pointer',
+	    margin: 20,
+	    background: '#78909C',
+	    borderBottomLeftRadius: 2,
+	    borderBottomRightRadius: 2
+	  },
+	  cover: function cover(url) {
+	    return {
+	      display: 'block',
+	      height: 300,
+	      width: 300,
+	      backgroundSize: 'cover',
+	      backgroundImage: 'url(' + baseUrl + url + ')'
+	    };
+	  },
+
+	  title: {
+	    padding: 10,
+	    margin: 0,
+	    color: '#ECEFF1'
+	  }
+	};
 
 /***/ }
 /******/ ]);

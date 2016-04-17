@@ -18,7 +18,6 @@ const render = (req, res) => {
     </Provider>
   )
   const initialState = req.store.getState()
-  intialState.clientControl = false
   const html = template(rootComponent, initialState)
   res.send(html)
 }
