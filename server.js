@@ -37,6 +37,7 @@ const fetchData = (page, ...args) => {
 }
 
 app.get('/', fetchData('home'), render)
+app.get('/dashboards/create', fetchData('create-dashboard'), render)
 app.get('/dashboards/:dashboardId', fetchData('dashboard', ['params', 'dashboardId']), render)
 app.get('*', (req, res) => res.status(404).send('Not found'))
 

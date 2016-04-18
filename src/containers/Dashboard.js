@@ -3,6 +3,7 @@ import { h, Component } from 'preact'
 import { Link } from 'preact-router'
 import { connect } from 'react-redux'
 import { fetchInitialData } from '../actions'
+import ProjectCard from '../components/ProjectCard.js'
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -10,20 +11,33 @@ class Dashboard extends Component {
     dispatch(fetchInitialData('dashboard', matches.dashboardId))
   }
 
-  render({ projects }) {
+  render({ projects, dashboard }) {
+    if(!dashboard) return ('')
     return (
       <div>
-        <h1>Dashboard</h1>
-        <Link href='/'>Home</Link>
-        <ul>
-        {projects.map((project, i) => (
-          <li key={i}>{project.title}</li>
-        ))}
-        </ul>
+        <div style={styles.hero}>
+          <h1>{dashboard.title}</h1>
+        </div>
+        <div style={styles.projects}>
+          {projects.map((project, i) => (
+            <ProjectCard key={i} project={project} domain={dashboard.domain} />
+          ))}
+        </div>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ projects }) => ({ projects })
+const styles = {
+  hero: {
+    textAlign: 'center'
+  },
+  projects: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap'
+  }
+}
+
+const mapStateToProps = ({ projects, dashboard }) => ({ projects, dashboard })
 export default connect(mapStateToProps)(Dashboard)

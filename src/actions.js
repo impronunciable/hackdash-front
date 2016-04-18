@@ -13,9 +13,12 @@ export const fetchInitialData = (page, ...args) => {
 
 export const fetchDashboard = (dashboardId) => dispatch => {
   dispatch(requestDashboard(dashboardId))
-  return request(`https://hackdash.org/api/v2/${dashboardId}/projects`)
-    .then(res => dispatch(receiveDashboard(dashboardId, res.data)))
-    .then(() => dispatch(serverReady()))
+  return Promise.all([
+    request(`https://hackdash.org/api/v2/dashboards/${dashboardId}`),
+    request(`https://hackdash.org/api/v2/${dashboardId}/projects`)
+  ])
+  .then(res => dispatch(receiveDashboard(dashboardId, {dashboard: res[0].data, projects: res[1].data})))
+  .then(() => dispatch(serverReady()))
 }
 
 function requestDashboard(dashboardId) {
@@ -25,11 +28,12 @@ function requestDashboard(dashboardId) {
   }
 }
 
-function receiveDashboard(dashboardId, projects) {
+function receiveDashboard(dashboardId, { dashboard, projects }) {
   return {
     type: 'RECEIVE_DASHBOARD',
     dashboardId,
-    projects
+    projects,
+    dashboard
   }
 }
 
@@ -40,27 +44,29 @@ function serverReady() {
   }
 }
 
-function requestDashboards(dashboardId) {
+function requestDashboards(search) {
   return {
-    type: 'REQUEST_DASHBOARDS'
+    type: 'REQUEST_DASHBOARDS',
+    search
   }
 }
 
-function receiveDashboards(dashboards) {
+function receiveDashboards(search, dashboards) {
   return {
     type: 'RECEIVE_DASHBOARDS',
-    dashboards
+    dashboards,
+    search
   }
 }
 
-export const fetchDashboards = () => dispatch => {
-  dispatch(requestDashboards())
-  return request(`https://hackdash.org/api/v2/dashboards`)
-    .then(res => dispatch(receiveDashboards(res.data)))
+export const fetchDashboards = (search = '') => dispatch => {
+  dispatch(requestDashboards(search))
+  return request(`https://hackdash.org/api/v2/dashboards?q=${search}`)
+    .then(res => dispatch(receiveDashboards(search, res.data)))
     .then(() => dispatch(serverReady()))
 }
 
-const instantDispatch = dispatch => dispatch({type: 'SERVER_READY'})
+const instantDispatch = dispatch => dispatch(serverReady())
 
 const fetchInitial = {
   dashboard: fetchDashboard,

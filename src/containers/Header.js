@@ -20,6 +20,8 @@ const styles = {
   header: {
     height: 75,
     maxWidth: 800,
+    paddingLeft: 10,
+    paddingRight: 10,
     margin: '0 auto',
     paddingTop: 15
   },
@@ -31,7 +33,7 @@ const styles = {
     display: 'inline-block',
     float: 'right',
     listStyle: 'none',
-    paddingTop: 10,
+    paddingTop: 17,
     link: {
       background: '#546E7A',
       display: 'inline-block',

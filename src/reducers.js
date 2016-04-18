@@ -7,7 +7,6 @@ function projects (state = [], action) {
       return []
     case 'RECEIVE_DASHBOARD':
       return [...action.projects]
-      break
     default:
       return state
   }
@@ -19,7 +18,18 @@ function dashboards (state = [], action) {
       return []
     case 'RECEIVE_DASHBOARDS':
       return [...action.dashboards]
-      break
+    default:
+      return state
+  }
+}
+
+
+function dashboard (state = {}, action) {
+  switch(action.type) {
+    case 'REQUEST_DASHBOARD':
+      return {}
+    case 'RECEIVE_DASHBOARD':
+      return Object.assign({}, action.dashboard)
     default:
       return state
   }
@@ -29,7 +39,6 @@ function serverReady (state = false, action) {
   switch(action.type) {
     case 'SERVER_READY':
       return true
-      break
     default:
       return state
   }
@@ -38,5 +47,6 @@ function serverReady (state = false, action) {
 export default combineReducers({
   projects,
   dashboards,
+  dashboard,
   serverReady
 })

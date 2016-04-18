@@ -2,12 +2,29 @@
 import { h, Component } from 'preact'
 import { connect } from 'react-redux'
 import DashboardCard from '../components/DashboardCard'
-import { fetchInitialData } from '../actions'
+import { fetchInitialData, fetchDashboards } from '../actions'
+import { debounce } from '../utils'
 
 class Home extends Component {
+  constructor() {
+    super()
+    this.value = ''
+  }
+
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(fetchInitialData('home'))
+  }
+
+  onSearchUpdate(event) {
+    const { dispatch } = this.props
+    const value = event.target.value
+    if (value.length >= 3) {
+      dispatch(fetchDashboards(value))
+    } else if (this.value.length >= 3) {
+      dispatch(fetchDashboards())
+    }
+    this.value = value
   }
 
   render({ dashboards }) {
@@ -17,7 +34,7 @@ class Home extends Component {
           <h1 style={styles.hero.title}>Manage your Hackathon</h1>
           <h2 style={styles.hero.subtitle}>Organize and showcase the projects, know who is participating</h2>
           <span style={styles.search}>
-            <input style={styles.search.input} placeholder='Search' />
+            <input style={styles.search.input} onKeyUp={debounce(this.onSearchUpdate.bind(this))} placeholder='Search' />
           </span>
         </div>
         <div style={styles.dashboards}>
@@ -69,7 +86,8 @@ const styles = {
     paddingTop: 70,
     display: 'flex',
     justifyContent: 'center',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    minHeight: 400
   }
 }
 

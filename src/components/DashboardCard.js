@@ -6,7 +6,7 @@ const baseUrl = 'https://hackdash.org'
 
 export default ({ dashboard }) =>
   <div style={styles.base} onClick={() => route(`/dashboards/${dashboard.domain}`)}>
-    <div style={styles.cover(dashboard.covers[0])}></div>
+    <div style={styles.cover(dashboard.covers[0] || '')}></div>
     <h4 style={styles.title}>{dashboard.title}</h4>
   </div>
 
@@ -26,7 +26,8 @@ const styles = {
       height: 300,
       width: 300,
       backgroundSize: 'cover',
-      backgroundImage: `url(${baseUrl}${url})`
+      backgroundImage: `url(${baseUrl}${url})`,
+      backgroundPosition: 'center'
     }
   },
   title: {
