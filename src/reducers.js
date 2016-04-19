@@ -23,13 +23,23 @@ function dashboards (state = [], action) {
   }
 }
 
-
 function dashboard (state = {}, action) {
   switch(action.type) {
     case 'REQUEST_DASHBOARD':
       return {}
     case 'RECEIVE_DASHBOARD':
       return Object.assign({}, action.dashboard)
+    default:
+      return state
+  }
+}
+
+function project (state = {}, action) {
+  switch(action.type) {
+    case 'REQUEST_PROJECT':
+      return {}
+    case 'RECEIVE_PROJECT':
+      return Object.assign({}, action.project)
     default:
       return state
   }
@@ -46,6 +56,7 @@ function serverReady (state = false, action) {
 
 export default combineReducers({
   projects,
+  project,
   dashboards,
   dashboard,
   serverReady

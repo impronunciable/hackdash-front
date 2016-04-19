@@ -5,7 +5,7 @@ import { route } from 'preact-router'
 const baseUrl = 'https://hackdash.org'
 
 export default ({ project, domain }) =>
-  <div style={styles.base} onClick={() => route(`/dashboards/${domain}/projects/${project._id}`)}>
+  <div style={styles.base} onClick={() => route(`/projects/${project._id}`)}>
     <div style={styles.cover(project.cover)}>
       {!project.cover ?
                       <i style={styles.initial}>{project.title[0]}</i>

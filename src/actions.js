@@ -37,6 +37,28 @@ function receiveDashboard(dashboardId, { dashboard, projects }) {
   }
 }
 
+export const fetchProject = (projectId) => dispatch => {
+  dispatch(requestProject(projectId))
+  return request(`https://hackdash.org/api/v2/projects/${projectId}`)
+    .then(res => dispatch(receiveProject(projectId, res.data)))
+    .then(() => dispatch(serverReady()))
+}
+
+function requestProject(projectId) {
+  return {
+    type: 'REQUEST_PROJECT',
+    projectId
+  }
+}
+
+function receiveProject(projectId, project) {
+  return {
+    type: 'RECEIVE_PROJECT',
+    projectId,
+    project
+  }
+}
+
 function serverReady() {
   return {
     type: 'SERVER_READY',
@@ -70,5 +92,6 @@ const instantDispatch = dispatch => dispatch(serverReady())
 
 const fetchInitial = {
   dashboard: fetchDashboard,
-  home: fetchDashboards
+  home: fetchDashboards,
+  project: fetchProject
 }
