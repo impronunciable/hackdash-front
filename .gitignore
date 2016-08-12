@@ -1,4 +1,4 @@
 node_modules
 .DS_Store
-build/backend.js
+server-build.js
 public/frontend.js

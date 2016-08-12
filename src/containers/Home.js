@@ -1,6 +1,6 @@
 
 import { h, Component } from 'preact'
-import { connect } from 'react-redux'
+import { connect } from 'preact-redux'
 import DashboardCard from '../components/DashboardCard'
 import { fetchInitialData, fetchDashboards } from '../actions'
 import { debounce } from '../utils'

@@ -1,7 +1,7 @@
 
 import { h, Component } from 'preact'
 import { Link } from 'preact-router'
-import { connect } from 'react-redux'
+import { connect } from 'preact-redux'
 import { fetchInitialData } from '../actions'
 
 class Project extends Component {

@@ -1,6 +1,6 @@
 
 import { h, Component } from 'preact'
-import { connect } from 'react-redux'
+import { connect } from 'preact-redux'
 import { Button } from 'preact-mdl'
 import { fetchInitialData } from '../actions'
 

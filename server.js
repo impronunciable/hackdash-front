@@ -2,7 +2,7 @@
 import { h } from 'preact'
 import express from 'express'
 import configStore from './src/store'
-import { Provider } from 'react-redux'
+import { Provider } from 'preact-redux'
 import template from './template'
 import App from './src/components/App'
 import { fetchInitialData } from './src/actions'

@@ -1,6 +1,6 @@
 
 import { h, render } from 'preact'
-import { Provider } from 'react-redux'
+import { Provider } from 'preact-redux'
 import App from './components/App'
 import configStore from './store'
 
