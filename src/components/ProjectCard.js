@@ -1,8 +1,7 @@
 
 import { h } from 'preact'
 import { route } from 'preact-router'
-
-const baseUrl = 'https://hackdash.org'
+import config from '../services/config'
 
 export default ({ project, domain }) =>
   <div style={styles.base} onClick={() => route(`/projects/${project._id}`)}>
@@ -30,7 +29,7 @@ const styles = {
       height: 300,
       width: 300,
       backgroundSize: 'cover',
-      backgroundImage: url && `url(${baseUrl}${url})`,
+      backgroundImage: url && `url(${config.assetsBaseUrl}${url})`,
       backgroundPosition: 'center',
       position: 'relative'
     }

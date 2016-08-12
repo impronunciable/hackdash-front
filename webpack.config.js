@@ -9,6 +9,9 @@ const sharedConfig = {
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
       { test: /\.json$/, loader: 'json-loader' }
     ]
+  },
+  resolve: {
+    root: [require.resolve('./src')]
   }
 }
 

@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux'
 
 function projects (state = [], action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'REQUEST_DASHBOARD':
       return []
     case 'RECEIVE_DASHBOARD':
@@ -13,7 +13,7 @@ function projects (state = [], action) {
 }
 
 function dashboards (state = [], action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'REQUEST_DASHBOARDS':
       return []
     case 'RECEIVE_DASHBOARDS':
@@ -24,7 +24,7 @@ function dashboards (state = [], action) {
 }
 
 function dashboard (state = {}, action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'REQUEST_DASHBOARD':
       return {}
     case 'RECEIVE_DASHBOARD':
@@ -35,7 +35,7 @@ function dashboard (state = {}, action) {
 }
 
 function project (state = {}, action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'REQUEST_PROJECT':
       return {}
     case 'RECEIVE_PROJECT':
@@ -46,7 +46,7 @@ function project (state = {}, action) {
 }
 
 function serverReady (state = false, action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'SERVER_READY':
       return true
     default:
